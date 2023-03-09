@@ -85,3 +85,98 @@ function getMonthName(month) {
             return "декабря";
     }
 }
+
+///2.7.4
+let rubles = 5000;
+let dollars = 700;
+let exchange = 75;
+let convertedDollar = dollars * exchange;
+
+console.log(rubles + convertedDollar);
+
+
+//2.7.5
+
+function NumberToText() {
+    let num = prompt("Введите число от 1 до 99:");
+    let ones = ["один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"];
+    let tens = ["десять", "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"];
+    let dozens = ["двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто"];
+
+    let result;
+
+    if (num === null || isNaN(num) || num < 1 || num > 99) {
+        result = "Некорректное число";
+    } else if (num < 10) {
+        result = ones[num - 1];
+    } else if (num < 20) {
+        result = tens[num - 10];
+    } else {
+        let firstDigit = Math.floor(num / 10);
+        let secondDigit = num % 10;
+
+        result = dozens[firstDigit - 2];
+
+        if (secondDigit > 0) {
+            result += " " + ones[secondDigit - 1];
+        }
+    }
+
+    console.log(result);
+}
+
+NumberToText();
+
+
+//bonus
+// Создать массив объектов, содержащих вопросы, варианты ответов и правильный ответ
+var questions = [
+    {
+        question: "В каком году был основан Google?",
+        choices: ["1998", "2002", "2005", "2010"],
+        correctAnswer: 1
+    },
+    {
+        question: "Какое животное является символом США?",
+        choices: ["Буйвол", "Орел", "Медведь", "Лев"],
+        correctAnswer: 2
+    },
+    {
+        question: "Какой материк самый большой по площади?",
+        choices: ["Африка", "Антарктида", "Евразия", "Австралия"],
+        correctAnswer: 3
+    }
+];
+
+// Функция для вывода вопросов и вариантов ответов
+function displayQuestion(questionObj) {
+    var message = questionObj.question + "\n";
+    for (var i = 0; i < questionObj.choices.length; i++) {
+        message += (i + 1) + ": " + questionObj.choices[i] + "\n";
+    }
+    return message;
+}
+
+// Функция для запроса ответа у пользователя и проверки правильности
+function askQuestion(questionObj) {
+    var message = displayQuestion(questionObj);
+    var playerAnswer = parseInt(prompt(message));
+    if (playerAnswer === questionObj.correctAnswer + 1) {
+        alert("Правильно!");
+        return true;
+    } else {
+        alert("Неправильно.");
+        return false;
+    }
+}
+
+// Цикл для вывода каждого вопроса и запроса ответа у пользователя
+for (var i = 0; i < questions.length; i++) {
+    var isCorrect = askQuestion(questions[i]);
+    if (!isCorrect) {
+        alert("Конец игры!");
+        break;
+    }
+}
+
+
